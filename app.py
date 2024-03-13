@@ -3,7 +3,6 @@ import mediapipe as mp
 from controller import Controller
 import webbrowser
 
-# URL for Google Maps
 google_maps_url = 'https://www.google.com/maps'
 
 # Open Google Maps in the default web browser

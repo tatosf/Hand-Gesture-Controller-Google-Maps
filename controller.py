@@ -25,6 +25,12 @@ class Controller:
     screen_width, screen_height = pyautogui.size()
 
 
+    @staticmethod
+    def lerp(start, end, alpha):
+        """Performs linear interpolation between start and end values."""
+        return start + (end - start) * alpha
+
+
     def update_fingers_status():
         Controller.little_finger_down = Controller.hand_Landmarks.landmark[20].y > Controller.hand_Landmarks.landmark[17].y
         Controller.little_finger_up = Controller.hand_Landmarks.landmark[20].y < Controller.hand_Landmarks.landmark[17].y
@@ -43,38 +49,32 @@ class Controller:
         Controller.little_finger_within_Thumb_finger = Controller.hand_Landmarks.landmark[20].y > Controller.hand_Landmarks.landmark[4].y and Controller.hand_Landmarks.landmark[20].y < Controller.hand_Landmarks.landmark[2].y
         Controller.ring_finger_within_Thumb_finger = Controller.hand_Landmarks.landmark[16].y > Controller.hand_Landmarks.landmark[4].y and Controller.hand_Landmarks.landmark[16].y < Controller.hand_Landmarks.landmark[2].y
     
+    @staticmethod
     def get_position(hand_x_position, hand_y_position):
-        old_x, old_y = pyautogui.position()
+        """Enhanced with linear interpolation for smooth movements."""
         current_x = int(hand_x_position * Controller.screen_width)
         current_y = int(hand_y_position * Controller.screen_height)
 
-        ratio = 1
-        Controller.prev_hand = (current_x, current_y) if Controller.prev_hand is None else Controller.prev_hand
-        delta_x = current_x - Controller.prev_hand[0]
-        delta_y = current_y - Controller.prev_hand[1]
-        
-        Controller.prev_hand = [current_x, current_y]
-        current_x , current_y = old_x + delta_x * ratio , old_y + delta_y * ratio
+        if Controller.prev_hand is None:
+            Controller.prev_hand = (current_x, current_y)
 
-        threshold = 5
-        if current_x < threshold:
-            current_x = threshold
-        elif current_x > Controller.screen_width - threshold:
-            current_x = Controller.screen_width - threshold
-        if current_y < threshold:
-            current_y = threshold
-        elif current_y > Controller.screen_height - threshold:
-            current_y = Controller.screen_height - threshold
+        # Linear interpolation for smooth cursor movement
+        new_x = Controller.lerp(Controller.prev_hand[0], current_x, 0.3) # Adjust alpha for smoother movements
+        new_y = Controller.lerp(Controller.prev_hand[1], current_y, 0.3)
 
-        return (current_x,current_y)
+        Controller.prev_hand = (new_x, new_y)
+
+        return new_x, new_y
         
+    @staticmethod
     def cursor_moving():
-        point = 9
-        current_x, current_y = Controller.hand_Landmarks.landmark[point].x ,Controller.hand_Landmarks.landmark[point].y
-        x, y = Controller.get_position(current_x, current_y)
-        cursor_freezed = Controller.all_fingers_up and Controller.Thump_finger_down
-        if not cursor_freezed:
-            pyautogui.moveTo(x, y, duration = 0)
+        # Assumes hand_Landmarks has been updated
+        if Controller.hand_Landmarks:
+            # Using the index finger tip position for cursor movement
+            fingertip_x = Controller.hand_Landmarks.landmark[8].x
+            fingertip_y = Controller.hand_Landmarks.landmark[8].y
+            x, y = Controller.get_position(fingertip_x, fingertip_y)
+            pyautogui.moveTo(x, y, duration=0.01)
     
     def detect_scrolling():
         scrolling_up =  Controller.little_finger_up and Controller.index_finger_down and Controller.middle_finger_down and Controller.ring_finger_down
@@ -97,13 +97,13 @@ class Controller:
         
         if zoomming_out:
             pyautogui.keyDown('ctrl')
-            pyautogui.scroll(-50)
+            pyautogui.scroll(-6)
             pyautogui.keyUp('ctrl')
             print("Zooming Out")
 
         if zoomming_in:
             pyautogui.keyDown('ctrl')
-            pyautogui.scroll(50)
+            pyautogui.scroll(6)
             pyautogui.keyUp('ctrl')
             print("Zooming In")
 
