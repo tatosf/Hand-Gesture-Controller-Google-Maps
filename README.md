@@ -1,24 +1,31 @@
-# README
-## Hand Gesture Recognition for Controlling Computer's Mouse Cursor
-This is a Python project for controlling a computer's mouse cursor using hand gestures. The program recognizes hand gestures through a webcam using the Mediapipe library and controls the mouse cursor via the PyAutoGUI library.
+# Hand Gesture Recognition for Google Maps Control
 
-The project is divided into two files, `app.py` and `controller.py`. The `app.py` file contains the main program logic while `controller.py` is responsible for handling the mouse cursor movement and click events.
+This Python project enables controlling Google Maps through hand gestures, offering an intuitive way to interact with maps without using traditional input devices. The program recognizes hand gestures through a webcam using the Mediapipe library and translates these gestures into mouse actions with the PyAutoGUI library, allowing for seamless navigation and control of Google Maps in a web browser.
 
-There is an extra file, `requirements.txt` which you can use to install the libraries required for this project.
+## Project Structure
+
+The project comprises two main files:
+
+- `app.py`: Contains the main program logic, initializing hand gesture recognition and opening Google Maps in a default web browser.
+- `controller.py`: Responsible for interpreting hand gestures and executing corresponding mouse cursor movements and clicks to control Google Maps.
+
+An additional file, `requirements.txt`, is provided to facilitate the installation of necessary libraries.
 
 ## Requirements
-#### To run the program, the following libraries are required:<br>
-  - OpenCV<br>
-  - Mediapipe<br>
-  - PyAutoGUI<br>
- 
-#### You can install these libraries using pip:<br>
-  -  `pip install opencv-python mediapipe pyautogui`<br>
-#### Or you can use the following command using pip to avoid any library version issue:<br>
-  - `pip install -r requirements.txt`
+
+To run the program, ensure you have the following libraries installed:
+
+- OpenCV
+- Mediapipe
+- PyAutoGUI
+
+You can install these libraries using pip:
+
+```bash
+pip install -r requirements.txt
 
 ## How to Run
-After installing the required libraries, run the `app.py` file in a Python environment with a webcam. The program will start capturing video from the webcam, and the mouse cursor can be controlled using the following hand gestures:
+After installing the required libraries, run the app.py file in a Python environment that has access to a webcam. Upon execution, the program will automatically open Google Maps in your default web browser and start capturing video from the webcam. You can then control Google Maps using the following hand gestures:
 
   - **Cursor moving**: Raise all fingers together and move your hand to move the cursor and control it.<br><br>
     &nbsp;&nbsp;&nbsp;&nbsp; ![Mouse_moving](https://user-images.githubusercontent.com/129029089/227950094-4dae7a2d-a332-41ad-aa13-a186a5052f60.png)
@@ -51,22 +58,10 @@ After installing the required libraries, run the `app.py` file in a Python envir
     &nbsp;&nbsp;&nbsp;&nbsp; ![Zooming_out](https://user-images.githubusercontent.com/129029089/227954586-4774546f-2611-482a-a722-52339ab57bb5.png)
 
 
-
-## Demo
-The repository includes some demo GIFs to help you understand how to use hand gestures to control the mouse. The GIFs show the different hand gestures and their corresponding mouse actions in action, making it easy to follow along and learn how to use the program. To view the demo GIFs, simply navigate to the `demo/` folder in the repository and open the GIFs using any image viewer.<br><br>
-    &nbsp;&nbsp;&nbsp;&nbsp; ![demo](https://user-images.githubusercontent.com/129029089/227974020-4e8c81a3-ef4f-47c8-ab46-f6737d15e4b8.gif)
-
-
-Hopefully these demos make it easier for you to get started with the program and learn how to use it effectively. If you have any questions or feedback, feel free to reach out to us!
-
 ## How it Works
-The program uses the Mediapipe library to detect hand landmarks from the video captured by the webcam. The `controller.py` file contains the logic for mapping the hand landmarks to specific mouse cursor actions, such as movement and clicking.
+The program utilizes the Mediapipe library to detect hand landmarks from the video captured by the webcam. The detected hand landmarks are then processed by controller.py, which maps these landmarks to specific actions for controlling Google Maps, such as cursor movement, clicking, scrolling, and zooming.
 
 ## Limitations
-The program currently only supports controlling a single mouse cursor, and it may not work well in low-light conditions. It also doesn't support handling gestures of more than one hand, however this is easy to overcome, may be in comming commits of this project.
 
-## License
+Currently, the program supports controlling Google Maps with gestures from a single hand and may encounter difficulties in low-light conditions. Future updates may include multi-hand gesture support and improved light condition handling.
 
-This project is licensed under the Apache License 2.0. The Apache License 2.0 is a permissive license that allows you to freely use, modify, distribute, and sell the software.<br>
-
-Feel free to use, modify and distribute the code as you see fit under the terms of the Apache License 2.0. For more information, please refer to the LICENSE file in the root of the project directory.
