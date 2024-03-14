@@ -23,6 +23,7 @@ You can install these libraries using pip:
 
 ```bash
 pip install -r requirements.txt
+```
 
 ## How to Run
 After installing the required libraries, run the app.py file in a Python environment that has access to a webcam. Upon execution, the program will automatically open Google Maps in your default web browser and start capturing video from the webcam. You can then control Google Maps using the following hand gestures:
@@ -34,7 +35,7 @@ After installing the required libraries, run the app.py file in a Python environ
   ![Mouse_freezing](gestures/Mouse_freezing.png)
 
 - **Drag and drop**: Close your hand into a fist and move it around to drag and drop objects.  
-  ![Drag](gestures/Drag.png)
+  ![Drag](gestures/Drag.png) gestures/Drag.png
 
 - **Right-click**: Raise your index finger while keeping the other fingers closed.  
   ![Right_click](gestures/Right_click.png)
