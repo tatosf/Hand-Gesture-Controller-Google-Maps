@@ -1,4 +1,4 @@
-# Hand Gesture Recognition for Google Maps Control
+# Hand Gesture Recognition for Google Maps Control 🗺️
 
 This Python project enables controlling Google Maps through hand gestures, offering an intuitive way to interact with maps without using traditional input devices. The program recognizes hand gestures through a webcam using the Mediapipe library and translates these gestures into mouse actions with the PyAutoGUI library, allowing for seamless navigation and control of Google Maps in a web browser.
 
